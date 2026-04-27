@@ -26,16 +26,6 @@
         ]
       }
     ],
-    "Stop": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "prompt",
-            "prompt": "Before ending this session, update 06_Metadata/hot.md with a brief summary of what happened this session. Use the format: Last Updated, Vault State, Recent Decisions, Active Threads, Key Patterns. Keep it under 500 words. Overwrite the file completely — it is a cache, not a journal. Preserve the YAML frontmatter but update the 'updated' date."
-          }
-        ]
-      }
-    ]
+    "Stop": []
   }
 }

@@ -40,26 +40,15 @@
 
 ## Frontmatter 规范
 
-所有笔记应包含 YAML frontmatter。完整规范见 `06_Metadata/schema.md`。
+完整字段定义见 `06_Metadata/schema.md`（唯一 source of truth）。任何 skill 生成 frontmatter 时，字段必须符合 schema.md 定义，skill 内置模板中不在 schema.md 中的字段一律忽略。快速参考：
 
-```yaml
----
-title: 文章标题
-type: reference | project | area | daily | meeting | entity | concept | analysis | meta
-tags: [主题标签, 如 agent/framework, trading/polymarket]
-source: 来源 URL 或出处
-date_saved: YYYY-MM-DD
-entities:                    # 可选，ingest 时提取
-  - name: "[[实体名]]"
-    type: person             # person/tool/project/concept/protocol/pattern/org
----
-```
-
-- tags 用小写英文，层级用 `/` 分隔（如 `agent/skills`、`trading/defi`）
-- 不要用中文 tag
-- type 字段必须是以上枚举值之一
-- entities 的 type 值域：`person / tool / project / concept / protocol / pattern / org`
-- **不写入** confidence、decay_score、embedding 等可重算字段
+- **通用必填**：`title`、`type`、`tags`、`date_saved`
+- **Reference 必填**：以上 + `source`、`author`、`description`
+- **Reference 推荐**：`published`（原始发布日期）
+- **可选增强**：`entities`、`created`
+- tags 用小写英文，`/` 分层（如 `agent/skills`、`trading/defi`），不用中文
+- type 枚举：`reference | project | area | daily | meeting | entity | concept | analysis | meta`
+- **不写入**可重算字段（confidence、decay_score、embedding）
 
 ## Agent 工作流
 
@@ -133,7 +122,7 @@ entities:                    # 可选，ingest 时提取
 `06_Metadata/hot.md` 是跨会话的记忆缓存。
 
 - **会话开始时**：自动读取 hot.md 恢复上次上下文（通过 hooks 自动完成）
-- **会话结束时**：自动更新 hot.md，记录本次会话的关键信息
+- **会话结束时**：**必须**在最后一次回复中更新 hot.md，记录本次会话的关键信息
 - **上下文压缩后**：自动重新读取 hot.md（因为压缩会丢失 hook 注入的内容）
 
 Hot cache 格式包含 5 个固定段落：
