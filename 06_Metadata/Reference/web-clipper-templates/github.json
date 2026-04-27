@@ -1,0 +1,63 @@
+{
+    "schemaVersion": "0.1.0",
+    "name": "GitHub",
+    "behavior": "create",
+    "noteContentFormat": "## {{title}}\n\n{{description}}\n\n**Repository:** {{url}}\n\n---\n\n{{content}}",
+    "properties": [
+        {
+            "name": "title",
+            "value": "{{title|split:\":\"|first|trim}}",
+            "type": "text"
+        },
+        {
+            "name": "type",
+            "value": "reference",
+            "type": "text"
+        },
+        {
+            "name": "source",
+            "value": "{{url}}",
+            "type": "text"
+        },
+        {
+            "name": "author",
+            "value": "{{title|split:\"/\"|first|trim}}",
+            "type": "text"
+        },
+        {
+            "name": "published",
+            "value": "{{published}}",
+            "type": "date"
+        },
+        {
+            "name": "date_saved",
+            "value": "{{date}}",
+            "type": "date"
+        },
+        {
+            "name": "description",
+            "value": "{{description|slice:0:200}}",
+            "type": "text"
+        },
+        {
+            "name": "stars",
+            "value": "{{selector:.Counter|first}}",
+            "type": "text"
+        },
+        {
+            "name": "language",
+            "value": "{{selector:span[itemprop='programmingLanguage']|first}}",
+            "type": "text"
+        },
+        {
+            "name": "tags",
+            "value": "clippings, github",
+            "type": "multitext"
+        }
+    ],
+    "triggers": [
+        "https://github.com"
+    ],
+    "noteNameFormat": "{{title|split:\":\"|first|trim|replace:\"/\":\"-\"|safe_name}}",
+    "path": "00_Inbox"
+}

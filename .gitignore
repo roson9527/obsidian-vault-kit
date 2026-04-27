@@ -1,0 +1,44 @@
+# ═══════════════════════════════════════════
+# ro-vault .gitignore — deny-by-default
+# Only whitelisted scaffold files enter Git.
+# Everything else (content, secrets, OS junk,
+# unknown files) is rejected automatically.
+# ═══════════════════════════════════════════
+
+# Deny all root-level entries
+/*
+
+# ─── Scaffold: root files ───
+!CLAUDE.md
+!.gitignore
+!.gitattributes
+
+# ─── Scaffold: .claude/ (deny-by-default within, overrides global gitignore) ───
+!.claude/
+.claude/*
+!.claude/settings.json
+!.claude/skills/
+!.claude/agents/
+!.claude/commands/
+
+# ─── Scaffold: _scaffold/ toolbox ───
+!_scaffold/
+
+# ─── Scaffold: .obsidian/ (deny-by-default within) ───
+!.obsidian/
+.obsidian/*
+!.obsidian/app.json
+!.obsidian/appearance.json
+!.obsidian/community-plugins.json
+!.obsidian/core-plugins.json
+!.obsidian/hotkeys.json
+!.obsidian/themes/
+
+# ─── Scaffold: 06_Metadata/ (deny-by-default within) ───
+!06_Metadata/
+06_Metadata/*
+!06_Metadata/schema.md
+!06_Metadata/Templates/
+!06_Metadata/Reference/
+06_Metadata/Reference/*
+!06_Metadata/Reference/web-clipper-templates/

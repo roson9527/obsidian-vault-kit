@@ -1,0 +1,39 @@
+scaffold:
+  - CLAUDE.md
+  - .claude/settings.json
+  - .claude/skills/
+  - .claude/agents/
+  - .claude/commands/
+  - .obsidian/app.json
+  - .obsidian/appearance.json
+  - .obsidian/community-plugins.json
+  - .obsidian/core-plugins.json
+  - .obsidian/hotkeys.json
+  - .obsidian/themes/
+  - 06_Metadata/schema.md
+  - 06_Metadata/Templates/
+  - 06_Metadata/Reference/web-clipper-templates/
+  - .gitignore
+  - .gitattributes
+  - _scaffold/
+
+content:
+  - 00_Inbox/
+  - 01_Projects/
+  - 02_Areas/
+  - 03_Resources/
+  - 04_Archive/
+  - 05_Attachments/
+  - 06_Metadata/index.md
+  - 06_Metadata/Reference/
+
+local:
+  - 06_Metadata/hot.md
+  - 06_Metadata/log.md
+  - .claudian/
+  - .obsidian/workspace.json
+  - .obsidian/workspace-mobile.json
+  - .obsidian/cache/
+  - .obsidian/graph.json
+  - .obsidian/plugins/
+  - .index/

@@ -1,0 +1,29 @@
+// Syncthing ignore rules for Obsidian vault
+// Copy to vault root as .stignore when configuring Syncthing
+
+// Git-managed scaffold (synced via git, not Syncthing)
+.git
+_scaffold
+.claude
+CLAUDE.md
+.gitignore
+.gitattributes
+06_Metadata/schema.md
+06_Metadata/Templates
+06_Metadata/Reference/web-clipper-templates
+
+// Obsidian: deny-by-default (scaffold config arrives via Git, not Syncthing)
+.obsidian
+
+// Local-state files (per-device, never synced)
+06_Metadata/hot.md
+06_Metadata/log.md
+.claudian
+
+// Derived enhancement layer (rebuildable)
+.index
+
+// OS / tool artifacts
+.DS_Store
+.stfolder
+.trash
