@@ -57,8 +57,36 @@
 ### 三个核心操作
 
 1. **Ingest**：新内容进入 → 补全 frontmatter → 提取 entities → 更新 index.md → 追加 log.md
+   - **Entities 提取是必须步骤，不可跳过**：读取全文，提取所有出现 ≥2 次或有明确定义的实体（person/tool/project/concept/protocol/pattern/org），写入 frontmatter `entities` 字段。Token 成本不是约束，检索效率优先。
+   - **Related 生成是必须步骤，不可跳过**：对照 `06_Metadata/index.md`，找出 vault 内语义最近的 3-5 个页面，写入 frontmatter `related` 字段（wikilink 格式）。
 2. **Query**：先读 `06_Metadata/index.md` 定位相关页面 → 钻取详情 → 综合回答（引用 vault 页面，不引训练数据）
 3. **Lint**：运行 vault-lint skill → 检查 frontmatter 完整性、孤页、断链等
+
+### GitHub 重新采集规则
+
+当 Inbox 中的文件 `source` 为 `github.com` 且 vault 内已存在相同 URL 的文件时，**不创建新页面，而是更新已有页面**：
+
+- **替换**：`description`（新 README/About 可能更新）、`stars`（刷新快照）、`language`（若新值非空）
+- **保留**：`tags`、`related`、`entities`、`date_saved`（不覆盖人工标注）
+- 更新完成后删除 Inbox 中的重复文件
+
+### X/推文类内容处理规则
+
+当 inbox 内容的 `source` 为 `x.com` 或 `twitter.com` 时，先判断形态再处理：
+
+| 形态 | 识别特征 | 处理方式 |
+|------|---------|---------|
+| 完整文章/长线程 | 有完整论点、多段落展开 | 常规 ingest |
+| **个人验证 + 技术片段** | 有引用推文 + 代码/数据 + 验证语气 | **重建内容**（见下） |
+| 纯想法碎片 | 一两句感想，无具体技术内容 | 归入相关 concept 页或删除 |
+
+**"个人验证 + 技术片段"的重建步骤（最常见的残缺形态）：**
+
+1. **识别真正的技术来源**：若为转发/引用，原始技术作者是 `author`，转发者降为正文末尾的 Note（"@xxx 验证有效"）
+2. **重建标题**：格式 `Resource - [技术描述] - @原作者`，描述技术本身，不用口语化反应语气
+3. **重建 description**：2-4 句，结构为"是什么 + 核心机制 + 实测效果/应用场景"
+4. **整理正文**：代码/BNF/数据保留为可引用格式；转发者的验证说明放在正文末尾标注为 `> **Note**:`
+5. **source**：改为指向原始推文 URL，而非转发者的推文
 
 ### 关键文件
 

@@ -41,12 +41,12 @@
         },
         {
             "name": "stars",
-            "value": "{{selector:.Counter|first}}",
+            "value": "{{selector:#repo-stars-counter-star|first}}",
             "type": "text"
         },
         {
             "name": "language",
-            "value": "{{selector:span[itemprop='programmingLanguage']|first}}",
+            "value": "{{selector:[data-ga-click*='language stats'] .text-bold|first}}",
             "type": "text"
         },
         {

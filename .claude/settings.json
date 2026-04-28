@@ -7,10 +7,6 @@
           {
             "type": "command",
             "command": "[ -f 06_Metadata/hot.md ] && cat 06_Metadata/hot.md || true"
-          },
-          {
-            "type": "prompt",
-            "prompt": "Silently read 06_Metadata/hot.md to restore recent vault context. Do not announce this or report what you read. Just have the context available for this session."
           }
         ]
       }
@@ -26,6 +22,16 @@
         ]
       }
     ],
-    "Stop": []
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -c \"import os,time,json; f='06_Metadata/hot.md'; age=time.time()-os.path.getmtime(f); exit(0) if age<600 else (print(json.dumps({'systemMessage': 'hot.md not updated — last updated '+str(int(age//60))+'m ago. Update it before ending session.'})) or exit(1))\""
+          }
+        ]
+      }
+    ]
   }
 }
