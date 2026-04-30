@@ -6,7 +6,7 @@
     "properties": [
         {
             "name": "title",
-            "value": "{{author}} - {{description|slice:0:80}}",
+            "value": "{{title|replace:(\" / X\":\"\",\"/^.+ on X\\: ./\":\"\",\"/.$/\":\"\")|slice:0:80}}",
             "type": "text"
         },
         {
@@ -36,7 +36,7 @@
         },
         {
             "name": "description",
-            "value": "{{description|slice:0:200}}",
+            "value": "",
             "type": "text"
         },
         {
@@ -49,6 +49,6 @@
         "https://x.com",
         "https://twitter.com"
     ],
-    "noteNameFormat": "{{author|replace:\"@\":\"\"|safe_name}} - {{description|slice:0:50|safe_name}}",
+    "noteNameFormat": "{{author|replace:\"@\":\"\"|safe_name}} - {{title|replace:(\" / X\":\"\",\"/^.+ on X\\: ./\":\"\",\"/.$/\":\"\")|slice:0:50|safe_name}}",
     "path": "00_Inbox"
 }
