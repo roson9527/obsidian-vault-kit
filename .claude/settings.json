@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "[ -f 06_Metadata/hot.md ] && cat 06_Metadata/hot.md || true"
+            "command": "VAULT=$(git rev-parse --show-toplevel 2>/dev/null) && [ -f \"$VAULT/06_Metadata/hot.md\" ] && cat \"$VAULT/06_Metadata/hot.md\" || true"
           }
         ]
       }
@@ -17,7 +17,7 @@
         "hooks": [
           {
             "type": "prompt",
-            "prompt": "Hook-injected context does not survive context compaction. Silently re-read 06_Metadata/hot.md now to restore the hot cache. Do not announce this."
+            "prompt": "Hook-injected context does not survive context compaction. Silently re-read 06_Metadata/hot.md (relative to vault root /Users/roson/knowledge-base/coding-vault/) now to restore the hot cache. Do not announce this."
           }
         ]
       }
@@ -28,7 +28,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 -c \"import os,time,json; f='06_Metadata/hot.md'; age=time.time()-os.path.getmtime(f); exit(0) if age<600 else (print(json.dumps({'systemMessage': 'hot.md not updated — last updated '+str(int(age//60))+'m ago. Update it before ending session.'})) or exit(1))\""
+            "command": "python3 -c \"import os,time,json,subprocess; vault=subprocess.check_output(['git','rev-parse','--show-toplevel']).decode().strip(); f=os.path.join(vault,'06_Metadata','hot.md'); age=time.time()-os.path.getmtime(f); exit(0) if age<600 else (print(json.dumps({'systemMessage': 'hot.md not updated — last updated '+str(int(age//60))+'m ago. Update it before ending session.'})) or exit(1))\""
           }
         ]
       }
