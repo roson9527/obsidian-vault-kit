@@ -204,3 +204,42 @@ L2 以增量方式运行（每次 ingest 时只比较新文章），不做全量
 - `embedding`（工具自动生成）
 - `id`（Obsidian 文件路径即唯一标识）
 - `relations`（从 wikilinks 和 entities 派生）
+
+---
+
+## 归档页面
+
+### 附加必填字段
+
+所有进入 04_Archive 的页面**必须**包含以下字段：
+
+| 字段 | 类型 | 说明 |
+|------|------|------|
+| `archived_date` | date | 归档日期 |
+| `archive_reason` | enum | 归档原因：`completed` \| `outdated` \| `duplicate` \| `low-priority` \| `scope-creep` |
+
+```yaml
+---
+title: "Project X - Prototype Phase"
+type: project
+tags: [archive/completed]
+date_saved: 2026-02-15
+archived_date: 2026-04-28
+archive_reason: completed
+description: "原型验证阶段完成，项目移交生产团队。包括 POC 代码和可行性报告。"
+---
+```
+
+### 归档流程
+
+当页面进入 04_Archive 时，必须遵循以下步骤：
+
+1. **确认原始 type**：保留原有 `type` 字段（不改为 `archived`），供未来检索恢复
+2. **补全 tags**：添加 `archive/reason` 前缀（如 `archive/completed`, `archive/outdated`）
+3. **补全必填字段**：
+   - `archived_date`：归档日期
+   - `archive_reason`：归档原因（必填）
+4. **保留参考价值**：
+   - `entities`：保留完整实体提取
+   - `related`：保留内链关系（含指向后继资源的链接）
+5. **description 增强**：追加归档原因说明（2-3 句）在原文末尾
